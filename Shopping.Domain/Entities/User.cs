@@ -1,4 +1,5 @@
 using Shopping.Domain.Base;
+using Shopping.Domain.Base.Concrete;
 
 namespace Shopping.Domain.Entities;
 
@@ -10,4 +11,5 @@ public class User : FullAuditedAggregateRootEntity<Guid>
     public string PasswordHash { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; }
+    public virtual ICollection<Cart> CartItems { get; set; }
 }

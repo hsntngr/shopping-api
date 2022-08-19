@@ -1,15 +1,16 @@
-namespace Shopping.Domain.Base;
+namespace Shopping.Domain.Base.Concrete;
 
-public abstract class AuditedAggregateRootEntity : AggregateRootEntity
+public abstract class AuditedEntity : Entity
 {
     public DateTime CreatedAt { get; set; }
     public Guid CreatedBy { get; set; }
     
     public DateTime UpdatedAt { get; set; }
     public Guid UpdatedBy { get; set; }
+    public abstract override object[] GetCompositeKeys();
 }
 
-public abstract class AuditedAggregateRootEntity<TKeyType> : AggregateRootEntity<TKeyType>
+public abstract class AuditedEntity<TKeyType> :  Entity<TKeyType>
 {
     public DateTime CreatedAt { get; set; }
     public Guid CreatedBy { get; set; }

@@ -1,5 +1,5 @@
-using Shopping.Domain.Base;
-using Shopping.Domain.Enums;
+using Shopping.Domain.Base.Concrete;
+using Shopping.Domain.Shared.Enums;
 
 namespace Shopping.Domain.Entities;
 

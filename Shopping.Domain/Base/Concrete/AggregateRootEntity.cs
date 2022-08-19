@@ -1,4 +1,4 @@
-namespace Shopping.Domain.Base;
+namespace Shopping.Domain.Base.Concrete;
 
 public abstract class AggregateRootEntity : Entity
 {
