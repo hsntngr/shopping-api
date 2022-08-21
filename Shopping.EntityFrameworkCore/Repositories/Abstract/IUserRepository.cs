@@ -5,5 +5,5 @@ namespace Shopping.EntityFrameworkCore.Repositories.Abstract;
 
 public interface IUserRepository : IRepository<User, Guid>
 {
-    
+   Task<User> FindUserByEmail(string email);
 }

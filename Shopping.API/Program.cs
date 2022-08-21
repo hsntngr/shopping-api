@@ -10,6 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGenConfiguration();
 builder.Services.AddConnectionConfiguration(builder.Configuration);
+builder.Services.AddAutoMapperConfiguration();
+builder.Services.AddNativeDependencies();
 
 var app = builder.Build();
 

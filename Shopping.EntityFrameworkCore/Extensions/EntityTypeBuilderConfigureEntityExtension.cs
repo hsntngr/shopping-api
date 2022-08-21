@@ -25,6 +25,7 @@ public static class EntityTypeBuilderConfigureEntityExtension
     private static void ConfigureCreatableEntity<TEntity>(EntityTypeBuilder<TEntity> builder) where TEntity : class
     {
         builder.Property<DateTime>(nameof(ICreatableEntity.CreatedAt)).HasDefaultValueSql("NOW()");
+        builder.Property(x => ((ICreatableEntity) x).CreatedBy).IsRequired(false);
         builder.HasOne(x => ((ICreatableEntity) x).Creator)
             .WithMany()
             .HasForeignKey(x => ((ICreatableEntity) x).CreatedBy);
@@ -32,6 +33,7 @@ public static class EntityTypeBuilderConfigureEntityExtension
 
     private static void ConfigureEditableEntity<TEntity>(EntityTypeBuilder<TEntity> builder) where TEntity : class
     {
+        builder.Property(x => ((IEditableEntity) x).UpdatedBy).IsRequired(false);
         builder.HasOne(x => ((IEditableEntity) x).Modifier)
             .WithMany()
             .HasForeignKey(x => ((IEditableEntity) x).UpdatedBy);
@@ -39,6 +41,7 @@ public static class EntityTypeBuilderConfigureEntityExtension
 
     private static void ConfigureSoftDeleteEntity<TEntity>(EntityTypeBuilder<TEntity> builder) where TEntity : class
     {
+        builder.Property(x => ((ISoftDeleteEntity) x).DeletedBy).IsRequired(false);
         builder.HasOne(x => ((ISoftDeleteEntity) x).Deleter)
             .WithMany()
             .HasForeignKey(x => ((ISoftDeleteEntity) x).DeletedBy);
