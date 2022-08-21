@@ -21,4 +21,8 @@
       <ProjectReference Include="..\Shopping.EntityFrameworkCore\Shopping.EntityFrameworkCore.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers" />
+    </ItemGroup>
+
 </Project>
