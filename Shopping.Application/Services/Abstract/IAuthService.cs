@@ -1,8 +1,7 @@
-using Shopping.Application.Resources.Auth;
 using Shopping.Application.Resources.Auth.Login;
 using Shopping.Application.Resources.Auth.Register;
 
-namespace Shopping.Application.Abstract;
+namespace Shopping.Application.Services.Abstract;
 
 public interface IAuthService
 {

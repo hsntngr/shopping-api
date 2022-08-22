@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Shopping.API.Controllers.Base;
-using Shopping.Application.Abstract;
-using Shopping.Application.Resources.Auth;
 using Shopping.Application.Resources.Auth.Login;
 using Shopping.Application.Resources.Auth.Register;
+using Shopping.Application.Services.Abstract;
 
 namespace Shopping.API.Controllers;
 

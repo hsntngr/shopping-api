@@ -1,7 +1,6 @@
 using Shopping.Application.Resources.Cart;
-using Shopping.Domain.Entities;
 
-namespace Shopping.Application.Abstract;
+namespace Shopping.Application.Services.Abstract;
 
 public interface ICartService
 {

@@ -1,6 +1,6 @@
 using Shopping.API.Middleware;
-using Shopping.Application.Abstract;
-using Shopping.Application.Concrete;
+using Shopping.Application.Services.Abstract;
+using Shopping.Application.Services.Concrete;
 using Shopping.EntityFrameworkCore.Repositories.Abstract;
 using Shopping.EntityFrameworkCore.Repositories.Concrete;
 using Shopping.EntityFrameworkCore.UnitOfWork.Abstract;
@@ -17,6 +17,8 @@ public static class NativeDependencyConfiguration
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ICartRepository, CartRepository>();
         services.AddScoped<ICartService, CartService>();
+        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IProductService, ProductService>();
         services.AddTransient<CurrentUserMiddleware>();
     }
 }

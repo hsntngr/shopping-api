@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.API.Controllers.Base;
-using Shopping.Application.Abstract;
 using Shopping.Application.Resources.Cart;
+using Shopping.Application.Services.Abstract;
 
 namespace Shopping.API.Controllers;
 

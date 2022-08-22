@@ -1,14 +1,12 @@
 using AutoMapper;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal;
-using Shopping.Application.Abstract;
 using Shopping.Application.Http.Exceptions;
 using Shopping.Application.Resources.Cart;
-using Shopping.Application.Resources.Product;
+using Shopping.Application.Services.Abstract;
 using Shopping.Domain.Entities;
 using Shopping.EntityFrameworkCore.Repositories.Abstract;
 using Shopping.EntityFrameworkCore.UnitOfWork.Abstract;
 
-namespace Shopping.Application.Concrete;
+namespace Shopping.Application.Services.Concrete;
 
 public class CartService : ICartService
 {
