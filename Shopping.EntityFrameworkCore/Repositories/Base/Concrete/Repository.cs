@@ -1,19 +1,18 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Shopping.Domain.Base.Abstract;
-using Shopping.EntityFrameworkCore.Contexts;
 using Shopping.EntityFrameworkCore.Repositories.Base.Abstract;
 
 namespace Shopping.EntityFrameworkCore.Repositories.Base.Concrete;
 
-public class Repository<TEntity, TKeyType> : IRepository<TEntity, TKeyType> where TEntity : class, IEntity<TKeyType>
+public abstract class RepositoryBase<TEntity> : IRepositoryRepositoryBase<TEntity> where TEntity : class
 {
     protected readonly DbSet<TEntity> DbSet;
 
-    public Repository(DbContext context)
+    public RepositoryBase(DbContext context)
     {
         DbSet = context.Set<TEntity>();
-    }   
+    }
 
     public async Task<ICollection<TEntity>> GetAll()
     {
@@ -35,11 +34,6 @@ public class Repository<TEntity, TKeyType> : IRepository<TEntity, TKeyType> wher
         DbSet.AddRange(entities);
     }
 
-    public async Task<TEntity> GetById(TKeyType id)
-    {
-        return await DbSet.FirstOrDefaultAsync(x => x.Id.Equals(id));
-    }
-
     public void Remove(TEntity entity)
     {
         DbSet.Remove(entity);
@@ -48,5 +42,24 @@ public class Repository<TEntity, TKeyType> : IRepository<TEntity, TKeyType> wher
     public void RemoveRange(ICollection<TEntity> entities)
     {
         DbSet.RemoveRange(entities);
+    }
+}
+
+public abstract class Repository<TEntity, TKeyType> : RepositoryBase<TEntity>, IRepository<TEntity, TKeyType> where TEntity : class, IEntity<TKeyType>
+{
+    public Repository(DbContext context) : base(context)
+    {
+    }
+
+    public async Task<TEntity> GetById(TKeyType id)
+    {
+        return await DbSet.FirstOrDefaultAsync(x => x.Id.Equals(id));
+    }
+}
+
+public abstract class Repository<TEntity> : RepositoryBase<TEntity>, IRepository<TEntity> where TEntity : class, IEntity
+{
+    public Repository(DbContext context) : base(context)
+    {
     }
 }

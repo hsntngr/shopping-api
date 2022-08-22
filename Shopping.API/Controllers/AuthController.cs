@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Shopping.API.Controllers.Base;
 using Shopping.Application.Abstract;
 using Shopping.Application.Resources.Auth;
 using Shopping.Application.Resources.Auth.Login;
@@ -8,7 +9,7 @@ namespace Shopping.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-public class AuthController : ControllerBase
+public class AuthController : ApplicationControllerBase
 {
     private readonly IAuthService _authService;
 
@@ -17,12 +18,22 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
+    /// <summary>
+    /// Login
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     [HttpPost]
     public async Task<LoginResponse> Login(LoginRequest request)
     {
         return await _authService.Authenticate(request);
     }
 
+    /// <summary>
+    /// Register
+    /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     [HttpPost]
     public async Task<RegisterResponse> Register(RegisterRequest request)
     {

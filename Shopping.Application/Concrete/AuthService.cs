@@ -69,7 +69,8 @@ public class AuthService : IAuthService
         var keys = Encoding.ASCII.GetBytes(_configuration.GetValue<string>("JWT:Secret"));
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new[] {new Claim("id", user.Id.ToString())}),
+            Issuer = _configuration.GetValue<string>("JWT:Issuer"),
+            Subject = new ClaimsIdentity(new[] {new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())}),
             Expires = DateTime.UtcNow.AddDays(expiresInDays),
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keys), SecurityAlgorithms.HmacSha256Signature)
         };
