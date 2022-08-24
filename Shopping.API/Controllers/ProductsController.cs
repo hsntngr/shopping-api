@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.API.Controllers.Base;
 using Shopping.Application.Resources.Product;
@@ -7,11 +8,11 @@ namespace Shopping.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class ProductController : ApplicationControllerBase
+public class ProductsController : ApplicationControllerBase
 {
     private readonly IProductService _productService;
 
-    public ProductController(IProductService productService)
+    public ProductsController(IProductService productService)
     {
         _productService = productService;
     }
@@ -44,6 +45,7 @@ public class ProductController : ApplicationControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
+    [Authorize]
     public async Task<ProductResponse> Create(CreateProductRequest request)
     {
         return await _productService.CreateAsync(request);
@@ -56,6 +58,7 @@ public class ProductController : ApplicationControllerBase
     /// <param name="productId"></param>
     /// <returns></returns>
     [HttpPut]
+    [Authorize]
     [Route("{productId}")]
     public async Task<ProductResponse> Update(UpdateProductRequest request, Guid productId)
     {
@@ -67,6 +70,7 @@ public class ProductController : ApplicationControllerBase
     /// </summary>
     /// <param name="productId"></param>
     [HttpDelete]
+    [Authorize]
     [Route("{productId}")]
     public async Task Remove(Guid productId)
     {

@@ -14,12 +14,12 @@ public abstract class RepositoryBase<TEntity> : IRepositoryRepositoryBase<TEntit
         DbSet = context.Set<TEntity>();
     }
 
-    public async Task<ICollection<TEntity>> GetAll()
+    public async Task<ICollection<TEntity>> GetAllAsync()
     {
         return await DbSet.ToListAsync();
     }
 
-    public async Task<ICollection<TEntity>> Get(Expression<Func<TEntity, bool>> expression)
+    public async Task<ICollection<TEntity>> GetAsync(Expression<Func<TEntity, bool>> expression)
     {
         return await DbSet.Where(expression).ToListAsync();
     }
@@ -51,7 +51,7 @@ public abstract class Repository<TEntity, TKeyType> : RepositoryBase<TEntity>, I
     {
     }
 
-    public async Task<TEntity> GetById(TKeyType id)
+    public async Task<TEntity> GetByIdAsync(TKeyType id)
     {
         return await DbSet.FirstOrDefaultAsync(x => x.Id.Equals(id));
     }

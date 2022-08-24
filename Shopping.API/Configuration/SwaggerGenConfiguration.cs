@@ -1,5 +1,6 @@
 using System.Reflection;
 using Microsoft.OpenApi.Models;
+using Shopping.API.Filters;
 
 namespace Shopping.API.Configuration;
 
@@ -13,7 +14,7 @@ public static class SwaggerGenConfiguration
             {
                 Version = "v1",
                 Title = "Shopping Assessment API",
-                Description = "Basic Restful Application To Purchase Products - Domain Driven Design - .Net Core - Ef Core - PostgresSQL",
+                Description = "Basic Restful API To Purchase Products - Domain Driven Design - .Net Core - Ef Core - PostgresSQL",
                 Contact = new OpenApiContact
                 {
                     Name = "Hasan Teoman TINGIR",
@@ -28,20 +29,7 @@ public static class SwaggerGenConfiguration
                 Type = SecuritySchemeType.ApiKey,
                 Scheme = "Bearer"
             });
-            options.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    Array.Empty<string>()
-                }
-            });
+            options.OperationFilter<SecurityRequirementsOperationFilter>();
             var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
         });

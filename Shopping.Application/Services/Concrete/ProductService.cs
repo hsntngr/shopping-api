@@ -23,13 +23,13 @@ public class ProductService : IProductService
 
     public async Task<ICollection<ProductResponse>> GetListAsync()
     {
-        ICollection<Product> products = await _productRepository.GetAll();
+        ICollection<Product> products = await _productRepository.GetAllAsync();
         return _mapper.Map<ICollection<Product>, ICollection<ProductResponse>>(products);
     }
 
     public async Task<ProductResponse> GetByIdAsync(Guid productId)
     {
-        Product product = await _productRepository.GetById(productId);
+        Product product = await _productRepository.GetByIdAsync(productId);
         return _mapper.Map<Product, ProductResponse>(product);
     }
 
@@ -43,7 +43,7 @@ public class ProductService : IProductService
 
     public async Task<ProductResponse> UpdateAsync(UpdateProductRequest request, Guid productId)
     {
-        Product product = await _productRepository.GetById(productId);
+        Product product = await _productRepository.GetByIdAsync(productId);
         if (product == null) throw new NotFoundException();
         _mapper.Map<UpdateProductRequest, Product>(request, product);
         await _unitOfWork.SaveChangesAsync();
@@ -52,7 +52,7 @@ public class ProductService : IProductService
 
     public async Task RemoveAsync(Guid productId)
     {
-        Product product = await _productRepository.GetById(productId);
+        Product product = await _productRepository.GetByIdAsync(productId);
         if (product == null) throw new NotFoundException();
         _productRepository.Remove(product);
         await _unitOfWork.SaveChangesAsync();

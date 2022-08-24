@@ -7,4 +7,6 @@ public interface ICartRepository : IRepository<Cart>
 {
     Task<ICollection<Cart>> GetCartItemsByUserId(Guid userId);
     Task<Cart?> GetCartById(Guid userId, Guid productId);
+    Task<int> CountTotalCartItemsByUserId(Guid userId);
+    Task<Cart?> GetCartItemHasMaxQuantity(Guid userId);
 }

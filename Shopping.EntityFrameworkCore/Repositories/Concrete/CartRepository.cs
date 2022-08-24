@@ -14,11 +14,23 @@ public class CartRepository : Repository<Cart>, ICartRepository
 
     public async Task<ICollection<Cart>> GetCartItemsByUserId(Guid userId)
     {
-        return await DbSet.Where(x => x.UserId == userId).ToListAsync();
+        return await DbSet.Where(x => x.UserId == userId)
+            .Include(x => x.Product)
+            .ToListAsync();
     }
 
     public async Task<Cart?> GetCartById(Guid userId, Guid productId)
     {
         return await DbSet.FirstOrDefaultAsync(x => x.UserId == userId && x.ProductId == productId);
+    }
+
+    public async Task<int> CountTotalCartItemsByUserId(Guid userId)
+    {
+        return await DbSet.Where(x => x.UserId == userId).SumAsync(x => x.Quantity);
+    }
+
+    public async Task<Cart?> GetCartItemHasMaxQuantity(Guid userId)
+    {
+        return await DbSet.Where(x => x.UserId == userId).OrderByDescending(x => x.Quantity).FirstOrDefaultAsync();
     }
 }

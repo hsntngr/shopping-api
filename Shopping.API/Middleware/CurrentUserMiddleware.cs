@@ -19,7 +19,7 @@ public class CurrentUserMiddleware : IMiddleware
         if (claim != null)
         {
             context.Items["CurrentUserId"] = claim.Value;
-            context.Items["CurrentUser"] = await _userRepository.GetById(Guid.Parse(claim.Value));
+            context.Items["CurrentUser"] = await _userRepository.GetByIdAsync(Guid.Parse(claim.Value));
         }
 
         await next.Invoke(context);

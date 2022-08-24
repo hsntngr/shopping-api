@@ -19,6 +19,10 @@ public static class NativeDependencyConfiguration
         services.AddScoped<ICartService, CartService>();
         services.AddScoped<IProductRepository, ProductRepository>();
         services.AddScoped<IProductService, ProductService>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+        services.AddScoped<IOrderItemService, OrderItemService>();
         services.AddTransient<CurrentUserMiddleware>();
     }
 }
