@@ -21,7 +21,8 @@ public class ProductEntityConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(x => x.Price)
             .IsRequired(ProductEntityValidation.Price.IsRequired)
             .HasPrecision(ProductEntityValidation.Price.Precision, ProductEntityValidation.Price.Scale);
-
+        
+        builder.HasQueryFilter(x => x.DeletedAt == null);
         #endregion
 
         #region Relation Configuration

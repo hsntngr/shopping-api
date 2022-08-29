@@ -30,6 +30,8 @@ public class UserEntityConfiguration : IEntityTypeConfiguration<User>
             .HasMaxLength(UserEntityValidations.PasswordHash.MaxLength)
             .IsRequired(UserEntityValidations.PasswordHash.IsRequired);
 
+        builder.HasQueryFilter(x => x.DeletedAt == null);
+
         #endregion
     }
 }
