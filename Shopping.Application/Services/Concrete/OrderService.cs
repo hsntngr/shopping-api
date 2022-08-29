@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Shopping.Application.Helperrs;
 using Shopping.Application.Http.Exceptions;
 using Shopping.Application.Http.Exceptions.Order;
@@ -37,14 +38,12 @@ public class OrderService : IOrderService
 
     public async Task<OrderResponse> CreateOrder(CreateOrderRequest createOrderRequest, Guid userId)
     {
-        int cartItemsCount = await _cartRepository.CountTotalCartItemsByUserId(userId, createOrderRequest.ProductIds);
-
+        int cartItemsCount = await _cartRepository.CountCartItemsByUserId(userId, createOrderRequest.ProductIds);
+        if (cartItemsCount > OrderValidations.OrderItems.MaxCount) throw new OrderItemMaxLimitExceededException();
         if (cartItemsCount < OrderValidations.OrderItems.MinCount) throw new MinimumOrderItemsNotSatisfiedException();
-        if (cartItemsCount > OrderValidations.OrderItems.MaxCount) throw new OrderItemsTotalQuantityLimitExceededException();
 
-        Cart? cartItemHasMaxQuantity = await _cartRepository.GetCartItemHasMaxQuantity(userId, createOrderRequest.ProductIds);
-
-        if (cartItemHasMaxQuantity != null && cartItemHasMaxQuantity.Quantity > OrderValidations.OrderItems.MaxCount) throw new OrderItemMaxLimitExceededException();
+        int cartItemsTotalQuantity = await _cartRepository.SumTotalCartItemsQuantityByUserId(userId, createOrderRequest.ProductIds);
+        if (cartItemsTotalQuantity > OrderValidations.OrderItems.TotalQuantity) throw new OrderItemsTotalQuantityLimitExceededException();
 
         int orderCountOfToday = await _orderRepository.GetOrderCountOfTodayAsync(userId);
         if (orderCountOfToday > OrderValidations.MaxOrderCountEachDay) throw new OrderLimitExceededException();
@@ -77,7 +76,7 @@ public class OrderService : IOrderService
         catch (Exception exception)
         {
             await _unitOfWork.RollbackTransactionAsync();
-            throw new BusinessException("Unknown occurred while creating order");
+            throw new BusinessException("Unknown occurred while creating order", exception);
         }
     }
 

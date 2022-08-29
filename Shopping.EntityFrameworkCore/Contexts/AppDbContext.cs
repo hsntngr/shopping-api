@@ -12,7 +12,7 @@ namespace Shopping.EntityFrameworkCore.Contexts;
 public class AppDbContext : DbContext
 {
     private readonly IHttpContextAccessor _context;
-    
+
     public AppDbContext(DbContextOptions<AppDbContext> options, IHttpContextAccessor context) : base(options)
     {
         _context = context;
@@ -44,8 +44,8 @@ public class AppDbContext : DbContext
     private void UpdateEntitiesAuditedProperties()
     {
         var entries = ChangeTracker.Entries();
-        Guid? userId = _context.HttpContext.Items.ContainsKey("CurrentUserId") ? Guid.Parse((string)_context.HttpContext.Items["CurrentUserId"]) : null;
-        
+        Guid? userId = _context.HttpContext.Items.ContainsKey("CurrentUserId") ? Guid.Parse((string) _context.HttpContext.Items["CurrentUserId"]) : null;
+
         foreach (var entry in entries)
         {
             if (typeof(ICreatableEntity).IsAssignableFrom(entry.Entity.GetType()) && entry.State == EntityState.Added)
@@ -72,5 +72,6 @@ public class AppDbContext : DbContext
     private void RegisterSeeders(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Product>().RegisterSeeder(new ProductSeeder());
+        modelBuilder.Entity<User>().RegisterSeeder(new UserSeeder());
     }
 }

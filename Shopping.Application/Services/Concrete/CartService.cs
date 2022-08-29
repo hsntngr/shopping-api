@@ -1,9 +1,7 @@
 using AutoMapper;
 using Shopping.Application.Http.Exceptions;
-using Shopping.Application.Http.Exceptions.Cart;
 using Shopping.Application.Resources.Cart;
 using Shopping.Application.Services.Abstract;
-using Shopping.Application.Validations.Order;
 using Shopping.Domain.Entities;
 using Shopping.EntityFrameworkCore.Repositories.Abstract;
 using Shopping.EntityFrameworkCore.UnitOfWork.Abstract;
@@ -41,7 +39,6 @@ public class CartService : ICartService
         };
 
         if (cart.Quantity == 0) _cartRepository.Add(cart);
-        if (cart.Quantity == OrderValidations.OrderItems.MaxCount) throw new CartItemMaxLimitExceededException();
         cart.Quantity++;
 
         await _unitOfWork.SaveChangesAsync();

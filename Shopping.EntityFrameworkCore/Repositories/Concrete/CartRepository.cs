@@ -40,7 +40,13 @@ public class CartRepository : Repository<Cart>, ICartRepository
             .FirstOrDefaultAsync(x => x.UserId == userId && x.ProductId == productId);
     }
 
-    public async Task<int> CountTotalCartItemsByUserId(Guid userId, ICollection<Guid> productIds)
+    public async Task<int> CountCartItemsByUserId(Guid userId, ICollection<Guid> productIds)
+    {
+        return await DbSet
+            .CountAsync(x => x.UserId == userId && productIds.Contains(x.ProductId));
+    }
+
+    public async Task<int> SumTotalCartItemsQuantityByUserId(Guid userId, ICollection<Guid> productIds)
     {
         return await DbSet
             .Where(x => x.UserId == userId && productIds.Contains(x.ProductId))
