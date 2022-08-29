@@ -16,15 +16,13 @@ namespace Shopping.Application.Services.Concrete;
 public class OrderService : IOrderService
 {
     private readonly IOrderRepository _orderRepository;
-    private readonly IOrderItemRepository _orderItemRepository;
     private readonly ICartRepository _cartRepository;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
 
-    public OrderService(IOrderRepository orderRepository, IOrderItemRepository orderItemRepository, ICartRepository cartRepository, IMapper mapper, IUnitOfWork unitOfWork)
+    public OrderService(IOrderRepository orderRepository, ICartRepository cartRepository, IMapper mapper, IUnitOfWork unitOfWork)
     {
         _orderRepository = orderRepository;
-        _orderItemRepository = orderItemRepository;
         _cartRepository = cartRepository;
         _mapper = mapper;
         _unitOfWork = unitOfWork;

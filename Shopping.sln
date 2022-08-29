@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Application", "Sho
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Domain.Shared", "Shopping.Domain.Shared\Shopping.Domain.Shared.csproj", "{79058344-F80E-4A47-83EC-E36F749C5A43}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shopping.Tests", "Shopping.Tests", "{26F07769-9E33-4E26-A4C1-C5EFD2109341}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.Application.Tests", "Shopping.Application.Tests\Shopping.Application.Tests.csproj", "{361C390D-E9D7-4497-A6BB-D4D6B5638AF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shopping.EntityFrameworkCore.Tests", "Shopping.EntityFrameworkCore.Tests\Shopping.EntityFrameworkCore.Tests.csproj", "{B88D53C4-A973-4E8F-8B4F-AF2997F60EA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,5 +41,17 @@ Global
 		{79058344-F80E-4A47-83EC-E36F749C5A43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79058344-F80E-4A47-83EC-E36F749C5A43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79058344-F80E-4A47-83EC-E36F749C5A43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{361C390D-E9D7-4497-A6BB-D4D6B5638AF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{361C390D-E9D7-4497-A6BB-D4D6B5638AF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{361C390D-E9D7-4497-A6BB-D4D6B5638AF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{361C390D-E9D7-4497-A6BB-D4D6B5638AF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B88D53C4-A973-4E8F-8B4F-AF2997F60EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B88D53C4-A973-4E8F-8B4F-AF2997F60EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B88D53C4-A973-4E8F-8B4F-AF2997F60EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B88D53C4-A973-4E8F-8B4F-AF2997F60EA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{361C390D-E9D7-4497-A6BB-D4D6B5638AF8} = {26F07769-9E33-4E26-A4C1-C5EFD2109341}
+		{B88D53C4-A973-4E8F-8B4F-AF2997F60EA7} = {26F07769-9E33-4E26-A4C1-C5EFD2109341}
 	EndGlobalSection
 EndGlobal

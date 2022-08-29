@@ -27,10 +27,7 @@ public class AuthController : ApplicationControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<LoginResponse> Login(LoginRequest request)
-    {
-        return await _authService.Authenticate(request);
-    }
+    public async Task<LoginResponse> Login(LoginRequest request) => await _authService.Authenticate(request);
 
     /// <summary>
     /// Register
@@ -38,10 +35,7 @@ public class AuthController : ApplicationControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<RegisterResponse> Register(RegisterRequest request)
-    {
-        return await _authService.Register(request);
-    }
+    public async Task<RegisterResponse> Register(RegisterRequest request) => await _authService.Register(request);
 
     /// <summary>
     /// Get Current User Details
@@ -49,10 +43,5 @@ public class AuthController : ApplicationControllerBase
     /// <returns></returns>
     [HttpGet]
     [Authorize]
-    public async Task<UserResponse> AuthenticatedUser()
-    {
-        var items = HttpContext.Items;
-        var res =  await _userService.GetUserById(CurrentUserId);
-        return res;
-    }
+    public async Task<UserResponse> AuthenticatedUser() => await _userService.GetUserById(CurrentUserId);
 }   
