@@ -5,4 +5,6 @@ namespace Shopping.EntityFrameworkCore.Repositories.Abstract;
 
 public interface IOrderItemRepository : IRepository<OrderItem>
 {
+    Task<int> CountOrderItemByOrderIdAsync(Guid orderId);
+    Task<int> SumOrderItemTotalQuantityByOrderIdAsync(Guid orderId);
 }

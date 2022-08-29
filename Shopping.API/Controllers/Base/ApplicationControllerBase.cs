@@ -1,20 +1,22 @@
 using Microsoft.AspNetCore.Mvc;
-using Shopping.Application.Resources.Product;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Shopping.Domain.Entities;
 
 namespace Shopping.API.Controllers.Base;
 
-public class ApplicationControllerBase : ControllerBase
+public class ApplicationControllerBase : Controller
 {
     protected User? CurrentUser;
     protected Guid CurrentUserId = Guid.Empty;
 
-    public ApplicationControllerBase()
+    public override void OnActionExecuting(ActionExecutingContext context)
     {
-        if (HttpContext?.Items?.ContainsKey("CurrentUserId") == true)
+        if (HttpContext.Items.ContainsKey("CurrentUserId"))
         {
             CurrentUserId = Guid.Parse((string) HttpContext.Items["CurrentUserId"]!);
             CurrentUser = (User) HttpContext.Items["CurrentUser"]!;
         }
+
+        base.OnActionExecuting(context);
     }
 }

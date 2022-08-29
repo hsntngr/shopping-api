@@ -1,7 +1,9 @@
 using AutoMapper;
 using Shopping.Application.Http.Exceptions;
+using Shopping.Application.Http.Exceptions.Cart;
 using Shopping.Application.Resources.Cart;
 using Shopping.Application.Services.Abstract;
+using Shopping.Application.Validations.Order;
 using Shopping.Domain.Entities;
 using Shopping.EntityFrameworkCore.Repositories.Abstract;
 using Shopping.EntityFrameworkCore.UnitOfWork.Abstract;
@@ -11,14 +13,16 @@ namespace Shopping.Application.Services.Concrete;
 public class CartService : ICartService
 {
     private readonly ICartRepository _cartRepository;
+    private readonly IProductRepository _productRepository;
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
 
-    public CartService(ICartRepository cartRepository, IMapper mapper, IUnitOfWork unitOfWork)
+    public CartService(ICartRepository cartRepository, IMapper mapper, IUnitOfWork unitOfWork, IProductRepository productRepository)
     {
         _cartRepository = cartRepository;
         _mapper = mapper;
         _unitOfWork = unitOfWork;
+        _productRepository = productRepository;
     }
 
     public async Task<ICollection<CartItemResponse>> GetCartItemsByUserId(Guid userId)
@@ -33,13 +37,16 @@ public class CartService : ICartService
         {
             ProductId = request.ProductId,
             UserId = userId,
-            Quantity = 1
+            Quantity = 0
         };
 
-        if (cart.Quantity == 1) _cartRepository.Add(cart);
-        else cart.Quantity++;
+        if (cart.Quantity == 0) _cartRepository.Add(cart);
+        if (cart.Quantity == OrderValidations.OrderItems.MaxCount) throw new CartItemMaxLimitExceededException();
+        cart.Quantity++;
 
         await _unitOfWork.SaveChangesAsync();
+
+        cart.Product = await _productRepository.GetByIdAsync(cart.ProductId);
 
         return _mapper.Map<Cart, CartItemResponse>(cart);
     }

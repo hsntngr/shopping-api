@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Shopping.Application.Resources.Auth.Login;
 
 public class LoginResponse

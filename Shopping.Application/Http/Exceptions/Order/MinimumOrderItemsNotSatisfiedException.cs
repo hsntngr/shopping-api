@@ -4,7 +4,7 @@ namespace Shopping.Application.Http.Exceptions.Order;
 
 public class MinimumOrderItemsNotSatisfiedException : BusinessException
 {
-    public MinimumOrderItemsNotSatisfiedException() : base($"You muse have at least {OrderValidations.MinOrderItemsCount} product in your cart!")
+    public MinimumOrderItemsNotSatisfiedException() : base($"You muse have at least {OrderValidations.OrderItems.MinCount} product in your order!")
     {
     }
 }

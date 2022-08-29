@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shopping.API.Controllers.Base;
 using Shopping.Application.Resources.Auth.Login;
 using Shopping.Application.Resources.Auth.Register;
+using Shopping.Application.Resources.User;
 using Shopping.Application.Services.Abstract;
 
 namespace Shopping.API.Controllers;
@@ -11,10 +13,12 @@ namespace Shopping.API.Controllers;
 public class AuthController : ApplicationControllerBase
 {
     private readonly IAuthService _authService;
+    private readonly IUserService _userService;
 
-    public AuthController(IAuthService authService)
+    public AuthController(IAuthService authService, IUserService userService)
     {
         _authService = authService;
+        _userService = userService;
     }
 
     /// <summary>
@@ -38,4 +42,17 @@ public class AuthController : ApplicationControllerBase
     {
         return await _authService.Register(request);
     }
-}
+
+    /// <summary>
+    /// Get Current User Details
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    [Authorize]
+    public async Task<UserResponse> AuthenticatedUser()
+    {
+        var items = HttpContext.Items;
+        var res =  await _userService.GetUserById(CurrentUserId);
+        return res;
+    }
+}   

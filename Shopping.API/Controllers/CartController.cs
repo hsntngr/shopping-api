@@ -34,7 +34,7 @@ public class CartController : ApplicationControllerBase
     /// <param name="request"></param>
     /// <returns></returns>
     [Authorize]
-    [HttpPost]
+    [HttpPut("CreateOrIncrement")]
     public async Task<CartItemResponse> Create(CreateCartItemRequest request)
     {
         return await _cartService.CreateCartItem(request, CurrentUserId);
@@ -45,7 +45,7 @@ public class CartController : ApplicationControllerBase
     /// </summary>
     /// <param name="request"></param>
     [Authorize]
-    [HttpDelete]
+    [HttpPut("RemoveOrDecrement")]
     public async Task Remove(RemoveCartItemRequest request)
     {
         await _cartService.RemoveCartItem(request, CurrentUserId);
@@ -54,12 +54,10 @@ public class CartController : ApplicationControllerBase
     /// <summary>
     /// Remove all cart items 
     /// </summary>
-    /// <param name="request"></param>
     [Authorize]
     [HttpDelete]
-    [Route("all")]
-    public async Task RemoveAll(RemoveCartItemRequest request)
+    public async Task RemoveAll()
     {
-        await _cartService.RemoveCartItem(request, CurrentUserId);
+        await _cartService.RemoveAllCartItems(CurrentUserId);
     }
 }

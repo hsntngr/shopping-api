@@ -35,28 +35,28 @@ public class OrderItemsController : ApplicationControllerBase
     /// Increment quantity of the item
     /// </summary>
     /// <param name="orderId"></param>
-    /// <param name="productId"></param>
+    /// <param name="request"></param>
     /// <returns></returns>
     [HttpPut]
     [Authorize]
-    [Route("{productId}/Increase")]
-    public async Task<OrderItemResponse> IncrementQuantity(Guid orderId, Guid productId)
+    [Route("Increase")]
+    public async Task<OrderItemResponse> IncrementQuantity(Guid orderId, IncrementOrderItemQuantityRequest request)
     {
-        return await _orderItemService.IncreaseQuantity(orderId, productId, CurrentUserId);
+        return await _orderItemService.IncreaseQuantity(orderId, request.ProductId, CurrentUserId);
     }
 
     /// <summary>
     /// Increment quantity of the item
     /// </summary>
     /// <param name="orderId"></param>
-    /// <param name="productId"></param>
+    /// <param name="request"></param>
     /// <returns></returns>
     [HttpPut]
     [Authorize]
-    [Route("{productId}/Decrease")]
-    public async Task<OrderItemResponse> DecrementQuantity(Guid orderId, Guid productId)
+    [Route("Decrease")]
+    public async Task<OrderItemResponse> DecrementQuantity(Guid orderId, DecrementOrderItemQuantityRequest request)
     {
-        return await _orderItemService.DecreaseQuantity(orderId, productId, CurrentUserId);
+        return await _orderItemService.DecreaseQuantity(orderId, request.ProductId, CurrentUserId);
     }
 
     /// <summary>
@@ -67,7 +67,7 @@ public class OrderItemsController : ApplicationControllerBase
     /// <returns></returns>
     [HttpDelete]
     [Authorize]
-    [Route("{productId}/item")]
+    [Route("{productId}")]
     public async Task RemoveOrderItem(Guid orderId, Guid productId)
     {
         await _orderItemService.Remove(orderId, productId, CurrentUserId);

@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Shopping.API.Middleware;
 using Shopping.Application.Services.Abstract;
 using Shopping.Application.Services.Concrete;
@@ -23,6 +24,8 @@ public static class NativeDependencyConfiguration
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<IOrderItemRepository, OrderItemRepository>();
         services.AddScoped<IOrderItemService, OrderItemService>();
+        services.AddScoped<IUserService, UserService>();
+        services.AddTransient<ExceptionHandlerMiddleware>();
         services.AddTransient<CurrentUserMiddleware>();
     }
 }

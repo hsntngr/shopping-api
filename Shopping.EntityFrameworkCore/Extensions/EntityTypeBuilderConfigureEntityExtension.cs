@@ -1,9 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Update;
 using Shopping.Domain.Base.Abstract;
-using Shopping.Domain.Entities;
 
 namespace Shopping.EntityFrameworkCore.Extensions;
 
