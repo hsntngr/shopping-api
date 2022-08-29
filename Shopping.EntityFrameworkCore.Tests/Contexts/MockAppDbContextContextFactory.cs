@@ -1,9 +1,7 @@
-using System.Globalization;
-using FizzWare.NBuilder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Moq;
-using Shopping.Domain.Entities;
 using Shopping.EntityFrameworkCore.Contexts;
 
 namespace Shopping.EntityFrameworkCore.Tests.Contexts;
@@ -16,6 +14,7 @@ public class MockAppDbContextContextFactory
     {
         var options = new DbContextOptionsBuilder<AppDbContext>()
             .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning))
             .Options;
 
         var httpContext = new DefaultHttpContext();

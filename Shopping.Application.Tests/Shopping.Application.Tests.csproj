@@ -18,12 +18,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Shopping.Application\Shopping.Application.csproj" />
       <ProjectReference Include="..\Shopping.EntityFrameworkCore.Tests\Shopping.EntityFrameworkCore.Tests.csproj" />
       <ProjectReference Include="..\Shopping.EntityFrameworkCore\Shopping.EntityFrameworkCore.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Services" />
     </ItemGroup>
 
 </Project>
