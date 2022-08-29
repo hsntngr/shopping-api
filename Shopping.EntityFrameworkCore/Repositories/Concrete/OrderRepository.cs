@@ -14,7 +14,7 @@ public class OrderRepository : Repository<Order, Guid>, IOrderRepository
 
     public async Task<int> GetOrderCountOfTodayAsync(Guid userId)
     {
-        return await DbSet.CountAsync(x => x.UserId == userId && x.CreatedAt.Date == DateTime.Now.Date);
+        return await DbSet.CountAsync(x => x.UserId == userId && x.CreatedAt.Date == DateTime.UtcNow.Date);
     }
 
     public async Task<Order?> GetOrderByCodeAsync(string code)
